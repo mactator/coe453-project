@@ -1,10 +1,9 @@
-// src/lib/api.ts
 import { MallEvent } from "./types";
 
-const API_URL = "http://localhost:5001/event";
+const API_URL = import.meta.env.VITE_API_URL as string;
 
 export async function sendMallEvent(event: MallEvent): Promise<void> {
-    console.log("📤 Sending event:", event); // 🔍 Log event sent
+    console.log("📤 Sending event:", event);
 
     try {
         const res = await fetch(API_URL, {

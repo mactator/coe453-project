@@ -8,7 +8,7 @@ import { Label } from "@radix-ui/react-label";
 import { useState } from "react";
 
 export default function SimulatePanel() {
-    const [mallId, setMallId] = useState("mall-01");
+    const [mallId] = useState("mall-01");
     const [storeId, setStoreId] = useState("store-01");
 
     return (
