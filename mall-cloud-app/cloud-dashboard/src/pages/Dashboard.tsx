@@ -15,13 +15,28 @@ export default function Dashboard() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        Promise.all([fetchOverallStats(), fetchPerMallStats()])
-            .then(([overallStats, perMallStats]) => {
+        const fetchData = async () => {
+            try {
+                const [overallStats, perMallStats] = await Promise.all([
+                    fetchOverallStats(),
+                    fetchPerMallStats(),
+                ]);
                 setOverall(overallStats);
                 setMallStats(perMallStats);
                 setLoading(false);
-            })
-            .catch(() => setLoading(false));
+            } catch (error) {
+                setLoading(false);
+            }
+        };
+
+        // Initial fetch
+        fetchData();
+
+        // Set interval to fetch every 500ms
+        const interval = setInterval(fetchData, 500);
+
+        // Cleanup on unmount
+        return () => clearInterval(interval);
     }, []);
 
     return (
